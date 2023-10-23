@@ -41,7 +41,7 @@
         height: 100%;
     }
     .show-merch {
-        overflow-x: auto;
+        overflow-y: auto;
         white-space: nowrap;
         width: 80%;
         margin: auto;
@@ -49,6 +49,11 @@
     }
     .show-merch img {
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        transition: transform 0.2s;
+    }
+    .show-merch img:hover {
+        transform: scale(1.08);
+        box-shadow: 0 0 10px rgb(214,181,110);
     }
     .show-merch p{
         color: #FFFFFF;
@@ -56,11 +61,7 @@
     
     .show-merch .row {
         display: inline-flex;
-        flex-wrap: nowrap;
-    }
-    
-    .show-merch .col-md-4 {
-        margin-right: 20px;
+        flex-wrap: wrap;
     }
     
     .show-merch::-webkit-scrollbar {
@@ -99,16 +100,15 @@
             @if($merchandise->isEmpty())
                 <p style="color:white;">No Merchandise available at the moment.</p>
             @else
-                @foreach ($merchandise as $index => $merch)
-                
-                    <div class="row mt-5">
-                        <div class="col-md-4">
+                <div class="row mt-5 ms-1">
+                @foreach ($merchandise as $index => $merch)                
+                        <div class="col-6 col-md-4">
                             <img src="{{ $images[$index % count($images)] }}" alt="" width="300px" height="300px">
                             <h5 class="mt-3">{{ $merch->name}}</h5>
                             <p class="mt-3">IDR {{ number_format($merch->price) }}</p>
                         </div>
-                    </div>
                 @endforeach
+                </div>
             @endif
             </div>
             
